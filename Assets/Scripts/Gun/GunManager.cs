@@ -10,6 +10,7 @@ public enum GunStatus
 	PropFire
 }
 public class GunManager : MonoBehaviour {
+	private PlayerMove playerMove;
 	private GunStatus currentStatus;	//枪当前状态
 	public Bullet[] bullets;
 	private int currentNum, specialNum;
@@ -22,6 +23,7 @@ public class GunManager : MonoBehaviour {
 	private float nextShoot = 0.0f; 
 	public float shootDelay = 1.0f;	
 	private Vector2 mousePos2World, shootDir;
+	public float recoilForce = 3.0f;
 	public static GunManager Instance{get; private set;}
 	public bool testMode = false;
 	private void Awake() {
@@ -30,6 +32,7 @@ public class GunManager : MonoBehaviour {
 
 	private void Start() {
 		MakeBullets();
+		playerMove = GameObject.Find("Player").GetComponent<PlayerMove>();
 		currentStatus = GunStatus.Normal;
 	}
 
@@ -91,7 +94,7 @@ public class GunManager : MonoBehaviour {
 				break;
 			default:break;
 		}
-		Debug.Log("CurrentStatue = " + currentStatus);
+		//Debug.Log("CurrentCharacterStatus = " + currentStatus);
 	}
 
 	void MakeBullets(){
@@ -116,6 +119,7 @@ public class GunManager : MonoBehaviour {
 	//根据方向发射子弹
 	void Launch(Vector2 direction){
 		if(currentNum > 0){
+			Recoil(direction);
 			bulletObjects[currentNum - 1].SetActive(true);
 			//与父物体解绑
 			bulletObjects[currentNum - 1].transform.parent = null;
@@ -127,12 +131,26 @@ public class GunManager : MonoBehaviour {
 
 	void SpecialLaunch(Vector2 direction){
 		if(specialNum > 0){
+			Recoil(direction);
 			exBulletObjs[specialNum - 1].SetActive(true);
 			//与父物体解绑
 			exBulletObjs[specialNum - 1].transform.parent = null;
 			exBulletRigs[specialNum - 1].velocity = direction * bullets[specialNum - 1].Speed;
 			//子弹数减一
 			specialNum -= 1;	
+		}
+	}
+
+	//后坐力
+	void Recoil(Vector2 shootdir){
+		float angle = Vector3.Angle(Vector2.right, shootdir);
+		playerMove.xSpeed -= recoilForce * Mathf.Cos(angle * Mathf.PI / 180);
+
+		if(shootdir.y > 0){
+			playerMove.ySpeed -= recoilForce * Mathf.Sin(angle * Mathf.PI / 180);
+		}else
+		{
+			playerMove.ySpeed += recoilForce * Mathf.Sin(angle * Mathf.PI / 180);
 		}
 	}
 

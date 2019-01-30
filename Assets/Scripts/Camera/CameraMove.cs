@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour {
 
 	public float moveRate = 2.0f;
-	public GameManager gameManager;
+	private GameManager gameManager;
 	private Camera mainCamera;
 	private Vector2 targetPos;
 	public bool canMove = false;
@@ -17,6 +17,7 @@ public class CameraMove : MonoBehaviour {
 	}
 	private void Start() {
 		mainCamera = GetComponent<Camera>();
+		gameManager = GameManager.Instance;
 	}
 	
 	public void MoveByDir (int dir) {
@@ -45,7 +46,9 @@ public class CameraMove : MonoBehaviour {
 			if(movePercent > 1.0f){
 				canMove = false;
 				movePercent = 0.0f;
-				gameManager.canPlayerMove = true;
+				
+				//传递已经摄像头到位的信息
+				gameManager.status = GameStatus.SwitchDone;
 			}
 		}
 	}

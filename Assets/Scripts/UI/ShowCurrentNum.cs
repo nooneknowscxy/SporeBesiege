@@ -10,7 +10,6 @@ public class ShowCurrentNum : MonoBehaviour {
 		text = transform.GetComponent<Text>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		text.text = RoomPointer.Instance.GetNumber().ToString();
 	}
