@@ -23,5 +23,9 @@ public class BulletCollierDetect : MonoBehaviour {
 			dustObject.transform.position = transform.position;
 			transform.parent.gameObject.SetActive(false);
 		}
+
+		if(other.transform.CompareTag("Enemy")){
+			transform.parent.gameObject.SetActive(false);
+		}
 	}
 }
