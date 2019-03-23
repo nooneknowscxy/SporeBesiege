@@ -140,7 +140,9 @@ public class RoomGroup{
 		return pos;
 	}
 
-	//获取出/入口对向的方向
+	///<summary>
+	///获取出/入口对向的方向
+	///</summary>
 	protected int OppositeDir(int num){
 		if(num >= 2){
 			return ((num + 2) % 4);
@@ -150,7 +152,9 @@ public class RoomGroup{
 		}
 	}
 
-	//根据房间编号获取房间
+	///<summary>
+	///根据房间编号获取房间
+	///</summary>
 	Room GetRoomByNum(int target){
 		Room targetRoom = new Room();
 		foreach(Room room in rooms){
@@ -161,7 +165,9 @@ public class RoomGroup{
 		return targetRoom;
 	}
 
-	//根据房间位置获取房间
+	///<summary>
+	///根据房间位置获取房间
+	///</summary>
 	public Room GetRoomByPos(Vector2 pos){
 		Room targetRoom = new Room();
 		for(int i = 0; i < roomPoses.Length; i ++){

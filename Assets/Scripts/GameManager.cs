@@ -15,7 +15,7 @@ public enum GameStatus
 public class GameManager : MonoBehaviour {
 
 	public GameStatus status;
-	public Transform playerTransform;
+	private Transform playerTransform;
 	private PlayerMove playerCtrl;
 	private DoorSet doorSet;
 	public static GameManager Instance{get; private set;} 

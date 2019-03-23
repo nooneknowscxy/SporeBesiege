@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public enum GunStatus
@@ -25,7 +25,10 @@ public class GunManager : MonoBehaviour {
 	private Vector2 mousePos2World, shootDir;
 	public float recoilForce = 3.0f;
 	public static GunManager Instance{get; private set;}
-	public bool testMode = false;
+	///<summary>伤害值</summary>
+	[HideInInspector]
+	public int hitValue;
+	public bool testMode = false;	//日后删除
 	private void Awake() {
 		Instance = this;
 	}
@@ -69,11 +72,13 @@ public class GunManager : MonoBehaviour {
 		//有限状态机
 		switch(currentStatus){
 			case GunStatus.Fire:
+				hitValue = 1;
 				//获得射击方向
 				shootDir = (mousePos2World - (Vector2)transform.position).normalized;
 				Launch(shootDir);
 				break;
 			case GunStatus.PropFire:
+				hitValue = 2;
 				shootDir = (mousePos2World - (Vector2)transform.position).normalized;
 				SpecialLaunch(shootDir);
 				break;
