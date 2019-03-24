@@ -10,11 +10,11 @@ public enum BossName
 
 public class BossManager : MonoBehaviour {
 
-	public BossName bossName;
+	protected BossName bossName;
 	///<summary>Boss阶段数</summary>
 	private int maxStages;
 	///<summary>当前Boss所处阶段</summary>
-	private int currentStage = 0;	
+	protected int currentStage = 0;	
 	public int maxHp;
 	public int[] stageConditionHp;
 	private int currentHp;
@@ -24,25 +24,16 @@ public class BossManager : MonoBehaviour {
 		Instance = this;
 	}
 
-	private void Start() {
+	void Start() {
+		Init();
+	}
+	
+	///<summary>
+	///初始化最大阶段数与当前生命值
+	///</summary>
+	protected void Init(){
 		maxStages = stageConditionHp.Length;
 		currentHp = maxHp;
-		switch (bossName)
-		{
-			case BossName.GuardIdiot:
-				break;
-			default:break;
-		}
-	}
-
-	private void Update() {
-		switch (bossName)
-		{
-			//“守卫者”
-			case BossName.GuardIdiot:
-				break;
-			default:break;
-		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
@@ -59,7 +50,14 @@ public class BossManager : MonoBehaviour {
 	public void CheckStage(){
 		if (currentHp <= stageConditionHp[currentStage])
 		{
-			currentStage ++;
+			if (currentHp == 0)
+			{
+				//执行死刑，可以挂接死亡动画
+				Dead(0.0f);
+			}else
+			{
+				currentStage ++;	
+			}
 		}
 	}
 

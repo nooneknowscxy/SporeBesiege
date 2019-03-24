@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EnemyBeHurt : MonoBehaviour {
 
+	public Animator hurtAnimator;
 	private void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log(other.name);
+		if(other.transform.CompareTag("Bullet")){
+			hurtAnimator.SetTrigger("BeHurt");
+		}
 	}
 }

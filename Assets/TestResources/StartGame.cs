@@ -5,12 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
 		SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}
