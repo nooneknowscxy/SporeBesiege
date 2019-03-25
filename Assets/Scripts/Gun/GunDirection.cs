@@ -5,6 +5,7 @@ using UnityEngine;
 public class GunDirection : MonoBehaviour {
 
 	Vector2 mousePos2World, shootDir;
+	public float angle;
 	bool faceLeft = true;
 	void Start () {
 	}
@@ -21,7 +22,7 @@ public class GunDirection : MonoBehaviour {
 			transform.localScale = thisScale;
 		}
 		shootDir = (mousePos2World - (Vector2)transform.position).normalized;
-		float angle = Vector2.Angle(shootDir, new Vector2(-1, 0)) * (shootDir.y < 0 ? 1 : -1);
+		angle = Vector2.Angle(shootDir, new Vector2(-1, 0)) * (shootDir.y < 0 ? 1 : -1);
 		transform.rotation = Quaternion.Euler(0, 0, angle);
 	}
 }
