@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerFootArrow : MonoBehaviour {
 
-	private Transform arrow;
+	//private Transform arrow;
 	Vector2 temp;
+	public float angle;
 	void Start () {
-		arrow = GetComponent<Transform>();
+		//arrow = GetComponent<Transform>();
 		temp = new Vector2(-1, 0);
 	}
 	
@@ -16,7 +17,7 @@ public class PlayerFootArrow : MonoBehaviour {
 		if(arrowVect != Vector2.zero){
 			temp = arrowVect;
 		}
-		float angle = Vector2.Angle(temp, new Vector2(1, 0)) * (temp.y > 0 ? 1 : -1);
-		arrow.rotation = Quaternion.Euler(0, 0, angle);
+		angle = Vector2.Angle(temp, new Vector2(1, 0)) * (temp.y > 0 ? 1 : -1);
+		//arrow.rotation = Quaternion.Euler(0, 0, angle);
 	}
 }

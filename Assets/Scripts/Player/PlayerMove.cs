@@ -12,6 +12,9 @@ public class PlayerMove : MonoBehaviour {
 	public float friction = 2.0f;
 	[HideInInspector]
 	public float xSpeed, ySpeed;
+	///<summary>键盘监听开关</summary>
+	[HideInInspector]
+	public bool canListenInput = true;
 
 	public bool isFaceLeft = true;
 
@@ -26,8 +29,9 @@ public class PlayerMove : MonoBehaviour {
 	}
 
 	void SmoothMove(){
-		float xInput = Input.GetAxisRaw("Horizontal");
-		float yInput = Input.GetAxisRaw("Vertical");
+		float xInput, yInput;
+		xInput = canListenInput ? Input.GetAxisRaw("Horizontal") : 0;
+		yInput = canListenInput ? Input.GetAxisRaw("Vertical") : 0;	
 
 		//如果按键方向与移动方向相反
 		if(xInput * player.velocity.x < 0){
