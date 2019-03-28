@@ -1,4 +1,3 @@
 # SporeBesiege
 
-#### 介绍
-孢围毕设
+A graduation project.
